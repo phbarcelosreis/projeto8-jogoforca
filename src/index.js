@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom'
-import Teste from './components/teste.js'
+import Site from './components/site.js'
 
 
 
-ReactDOM.render(<Teste/>, document.querySelector('.root'))
+ReactDOM.render(<Site/>, document.querySelector('.root'))

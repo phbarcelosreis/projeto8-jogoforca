@@ -8,13 +8,14 @@ export const Page = styled.div`
 `
 export const Imagem = styled.img`
     height: 400px;
-    width: 300px;
+    width: 350px;
 `
 
 export const Title = styled.input`
     background-color: #32CD32;
     text-align: center;
-    height: 50px;
+    margin-top: 25px;
+    height: 40px;
     width: 200px;
     display: flex;
     align-items: center;
@@ -27,7 +28,7 @@ export const Teste = styled.div`
     display: flex;    
     justify-content: space-around;
     box-sizing: border-box;
-    width: 50%;
+    width: 40%;
     height: 500px;
 `
 
