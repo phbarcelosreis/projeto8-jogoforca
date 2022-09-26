@@ -11,8 +11,7 @@ import { useState } from "react";
 const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 const forcas = [forca0, forca1, forca2, forca3, forca4, forca5, forca6]
 let erros = 0;
-let choiceWord ;
-let wordwithout; 
+
 
 
 function App() {
@@ -21,23 +20,19 @@ function App() {
     const [CheckWL, setCheckWL] = useState("lined")
     const [press, setLetter] = useState([])
     const [array, setArray] = useState([])
-    let choiceWord ;
-    let wordwithout; 
     const novoArray = [];
+    const [choiceWord] = novasPalavras
     const [Try, setTry] = useState("")
     const estadoForca = { imagem: forcas[erros] }
-
+    const palavraNormal = choiceWord.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
 
     function Jogo(atributo) {
-
+        for (let i = 0; i < palavraNormal.length; i++) {
+            novoArray.push(palavraNormal[i]);
+        }
 
         function IniciarJogo() {
-            choiceWord = novasPalavras[Math.floor(Math.random()*novasPalavras.length)]
-            wordwithout = choiceWord.normalize('NFD').replace(/[\u0300-\u036f]/g, "")
-            for (let i = 0; i < wordwithout.length; i++) {
-                novoArray.push(wordwithout[i]);
-            }
-            console.log(choiceWord.lenght)
+            console.log(palavraNormal)
             ResetarJogo()
             let array = novoArray.map(() => ' _ ')
             setArray(array)
