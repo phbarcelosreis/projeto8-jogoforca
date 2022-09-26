@@ -59,6 +59,7 @@ function App() {
                 for (let i = 0; i < novoArray.length; i++) {
                     if (letter === novoArray[i]) {
                         arrayModificado[i] = choiceWord[i]
+
                     }
                 }
                 incrementaErro(arrayModificado, letter)
