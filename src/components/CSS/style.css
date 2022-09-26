@@ -1,0 +1,115 @@
+.bodyLower {
+    margin: 0 auto;
+    width: 700px;
+    margin-top: 30px;
+    position: relative;
+    margin-top: 20px;
+}
+
+.root img {
+    width: 350px;
+    height: 350px;
+}
+.Topo{
+    display: flex;
+    width:100%;
+}
+.leftBox{
+    width:60%;
+}
+.rightBox{
+    display: flex;
+    flex-direction: column;
+    width:50%;
+    height:300px;
+    margin-top:30px;
+    justify-content: space-between;
+    align-items: center;
+}
+.rightBox>button {
+    width: 120px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    background-color: green;
+}
+
+.bodyLower button span {
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    font-weight: 700;
+}
+
+ul {
+    width: 75%;
+    gap: 10px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin: 0 auto;
+}
+
+ul li button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    background-color: rgb(169, 172, 172)
+}
+
+ul li button h3 {
+    font-family: 'Roboto', sans-serif;
+    color: slategray;
+    font-weight: 700;
+}
+
+.bodyLower .writing {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.habilitado{
+    background-color: lightblue;
+}
+.habilitado:active{
+    transform: translate(1px, 2px);
+}
+.habilitado>h3{
+    color: lightseagreen;
+}
+
+.habilitado:hover{
+    filter:brightness(1.10)
+
+}
+
+.habilitado:disabled{
+    background-color: rgb(167, 167, 167);
+}
+
+.habilitado:disabled>h3{
+    color: slategray;
+}
+
+.lined {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size:50px;
+    padding-left: 20px;
+}
+
+.verde {
+    color:green;
+}
+.vermelho{
+    color:red;
+}
+
+.listaButtons{
+    margin-top: 30px;
+    margin-left: 75px;
+}

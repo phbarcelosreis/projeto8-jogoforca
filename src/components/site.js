@@ -1,165 +1,158 @@
-import { useState } from "react";
-import styled from "styled-components";
+import forca0 from "./assets/forca0.png"
+import forca1 from "./assets/forca1.png"
+import forca2 from "./assets/forca2.png"
+import forca3 from "./assets/forca3.png"
+import forca4 from "./assets/forca4.png"
+import forca5 from "./assets/forca5.png"
+import forca6 from "./assets/forca6.png"
 import novasPalavras from "./palavras";
+import { useState } from "react";
 
-const alfabeto = [
-    "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
-];
+const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+const forcas = [forca0, forca1, forca2, forca3, forca4, forca5, forca6]
+let erros = 0;
+let choiceWord ;
+let wordwithout; 
 
-export default function Site() {
 
-    const [mudar, setMudar] = useState("");
-    const [word, setWord] = useState("")
-    /* const [cont, setCont] = useState(0) */
-    const [imagem, setImagem] = useState("/assets/forca0.png")
+function App() {
+    const [start, setStart] = useState(false)
+    const [botaozin, setBotaozin] = useState("")
+    const [CheckWL, setCheckWL] = useState("lined")
+    const [press, setLetter] = useState([])
+    const [array, setArray] = useState([])
+    let choiceWord ;
+    let wordwithout; 
+    const novoArray = [];
+    const [Try, setTry] = useState("")
+    const estadoForca = { imagem: forcas[erros] }
 
-    function ChangeValue() {
-        setImagem()
-        if (mudar === word){
-            alert("Voce conseguiu!")
+
+    function Jogo(atributo) {
+
+
+        function IniciarJogo() {
+            choiceWord = novasPalavras[Math.floor(Math.random()*novasPalavras.length)]
+            wordwithout = choiceWord.normalize('NFD').replace(/[\u0300-\u036f]/g, "")
+            for (let i = 0; i < wordwithout.length; i++) {
+                novoArray.push(wordwithout[i]);
+            }
+            console.log(choiceWord.lenght)
+            ResetarJogo()
+            let array = novoArray.map(() => ' _ ')
+            setArray(array)
+            if (!start) {
+                setStart(true)
+                setBotaozin("habilitado")
+            }
         }
-        console.log(mudar)
+        function ResetarJogo() {
+            
+            setLetter([]);
+            erros = 0;
+            setCheckWL("lined")
+        }
+        function verificaLetra(letter) {
+            setLetter([...press, letter])
+            if (start) {
+                if (press) {
 
+                } else {
+                    setLetter(true)
+                }
+                const arrayModificado = [...array]
+                for (let i = 0; i < novoArray.length; i++) {
+                    if (letter === novoArray[i]) {
+                        arrayModificado[i] = choiceWord[i]
+                    }
+                }
+                incrementaErro(arrayModificado, letter)
+                setArray(arrayModificado)
+                verificaCheckWL(arrayModificado)
+            }
+        }
+        function incrementaErro(arrayModificado, letra) {
+            if (!novoArray.includes(letra)) {
+                erros++;
+                verificaCheckWL(arrayModificado)
+            }
+        }
+
+        function verificaCheckWL(arrayModificado, palavraInput) {
+            if (!arrayModificado.includes(" _ ")) {    //ou palavra digitada no input for igual a choiceWord
+                setCheckWL("lined verde")
+                setStart(false)
+                setBotaozin("")
+            } else if (erros === 6) {
+                setArray(choiceWord)
+                setCheckWL("lined vermelho")
+                setStart(false)
+                setBotaozin("")
+            }
+        }
+
+
+        function Alfabeto() {
+            return (
+                <ul className="listaButtons">
+                    {alfabeto.map((props, key) => (
+                        <li key={key}>
+                            <button disabled={press.includes(props)} className={botaozin} onClick={() => verificaLetra(props)}>
+                                <h3>{props.toUpperCase()}</h3>
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            )
+        }
+
+
+
+        return (
+            <div>
+                <div className="Topo">
+                    <div className="leftBox">
+                        <img src={estadoForca.imagem} alt="forca inicial" />
+                    </div>
+                    <div className="rightBox">
+                        <button onClick={() => IniciarJogo(atributo)}>
+                            <span>Iniciar Jogo</span>
+                        </button>
+                        <div className={CheckWL}>{array}</div>
+                    </div>
+                </div>
+                <Alfabeto />
+            </div>
+
+        )
     }
 
-    function changeWord() {
-        const newWord = novasPalavras[0]
-        setWord(newWord);
-        console.log(newWord)
+    function verificaCheckWLTry() {
+        if (Try === choiceWord) {
+            setArray(Try)
+            setCheckWL("lined verde")
+            setStart(false)
+            setBotaozin("")
+        } else {
+            erros = 6;
 
-    }
-/* 
-    function RenderImage() {
-        if (cont === 1) {
-            const imagemNova = "/assets/forca1.png"
-            setImagem(imagemNova)
-        } else if (cont === 2) {
-            const imagemNova = "/assets/forca2.png"
-            setImagem(imagemNova)
-        } else if (cont === 3) {
-            const imagemNova = "/assets/forca3.png"
-            setImagem(imagemNova)
-        } else if (cont === 4) {
-            const imagemNova = "/assets/forca4.png"
-            setImagem(imagemNova)
-        } else if (cont === 5) {
-            const imagemNova = "/assets/forca5.png"
-            setImagem(imagemNova)
-        } else if (cont === 6) {
-            const imagemNova = "/assets/forca6.png"
-            setImagem(imagemNova)
+            setArray(choiceWord)
+            setCheckWL("lined vermelho")
+            setStart(false)
+            setBotaozin("")
         }
-
-    } */
+    }
 
     return (
-        <Page>
-            <Teste>
-                <Imagem src={imagem} alt="Forca-Inicial" />
-                <div>
-                    <ButtonTitle onClick={changeWord}>Escolher Palavra</ButtonTitle>
-                    {word === novasPalavras[0] ? <Palavra>{word}</Palavra> : <Palavra></Palavra>}
-                </div>
-
-
-            </Teste>
-
-            <Grid>
-                {alfabeto.map((props, index) =>
-                    <Letter key={index}>{props}</Letter>
-                )}
-            </Grid>
-            <div>
-                Já sei a palavra!
-                <WordBox placeholder="Teste" value={mudar} onChange={e => setMudar(e.target.value)} />
-                <WordButton onClick={ChangeValue}>Chute!</WordButton>
+        <div className="bodyLower">
+            <Jogo />
+            <div className="writing ">
+                <h4>Ja sei a palavra!</h4>
+                <input disabled={!start} type="text" placeholder="Tente acertar!" value={Try} onChange={e => setTry(e.target.value)} />
+                <button disabled={!start} onClick={() => verificaCheckWLTry(Try)}>Chutar!</button>
             </div>
-        </Page>
-
+        </div>
     )
-
 }
 
-const Page = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 40px;
-`
-
-const Imagem = styled.img`
-    height: 400px;
-    width: 350px;
-`
-
-const ButtonTitle = styled.button`
-    background-color: #32CD32;
-    text-align: center;
-    margin-top: 25px;
-    height: 40px;
-    width: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    border: 1px solid #FFFF;
-    & input::placeholder{
-        color: #FAA;
-    }
-
-`;
-
-const Teste = styled.div`
-    display: flex;    
-    justify-content: space-around;
-    box-sizing: border-box;
-    width: 40%;
-    height: 500px;
-`
-
-const Grid = styled.div`
-    display: grid;
-    grid-template-columns: repeat(13, 35px);
-    gap: 10px;
-`
-
-const Letter = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width:100%;
-    height: 35px;
-    background-color: #9FAAB5;
-    color: 	#86868A;
-    border-radius: 2px;
-    &:hover{
-        background-color: #FAA;
-    }
-`
-
-const WordBox = styled.input`
-    border: 1px solid #9FAAB5;
-    height: 25px;
-    width: 250px;
-    margin-top: 20px;
-    border-radius: 5px;
-    margin-right: 10px;
-    margin-left: 10px;
-    
-    
-`
-
-const WordButton = styled.button`
-    width: 60px;
-    height: 30px;
-    background-color: #9FAAB5;
-
-`
-
-const Palavra = styled.div`
-    margin-top: 320px;
-    letter-spacing: 5px;
-    text-decoration: underline;
-    font-size: 20px;
-`
+export default App

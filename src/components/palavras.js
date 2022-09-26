@@ -23,7 +23,6 @@ const palavras = [
     "xícara", "xadrez", "xilofone", "xarope", "xenofobia", "xereta", "xerife", "xaveco", "xixi", "xale", 
     "zebra", "zagueiro", "zero", "zoeira", "zodíaco", "zangão", "zepelim", "zinco", "zoológico", "zumbido"
 ]
-
 const novasPalavras = shuffleArray(palavras);
 
 function shuffleArray(array) {
